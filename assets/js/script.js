@@ -55,6 +55,10 @@ $(function(){
   var App = Backbone.View.extend({
     el: $('#main'),
 
+    initialize: function(){
+      this.total = $('#total span');
+      this.list = $('#services');
+    }
 
   });
 
