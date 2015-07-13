@@ -7,7 +7,20 @@ $(function(){
       checked: false
     },
 
-    
+    toggle: function() {
+      this.set('checked', !this.get('checked'));
+    }
+
   });
+
+
+
+
+
+
+
+
+
+
 
 });
