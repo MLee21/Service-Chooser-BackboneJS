@@ -46,6 +46,15 @@ $(function(){
       return this;
     },
 
+    toggleService: function(){
+      this.model.toggle();
+    }
+
+  });
+
+  var App = Backbone.View.extend({
+    
+
   });
 
 
