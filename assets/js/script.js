@@ -13,7 +13,9 @@ $(function(){
 
   });
 
-
+  var ServiceList = Backbone.Collection.extend({
+    
+  });
 
 
 
