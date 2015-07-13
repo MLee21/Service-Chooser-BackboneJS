@@ -1,85 +1,91 @@
 $(function(){
 
-  var Service = BackBone.Model.extend({
-    defaults:{
-      title: "My service",
-      price: 100,
-      checked: false
-    },
+    var Service = Backbone.Model.extend({
 
-    toggle: function() {
-      this.set('checked', !this.get('checked'));
-    }
+        defaults:{
+            title: 'My service',
+            price: 100,
+            checked: false
+        },
 
-  });
+        toggle: function(){
+            this.set('checked', !this.get('checked'));
+        }
+    });
 
-  var ServiceList = Backbone.Collection.extend({
-    model: Service,
+    var ServiceList = Backbone.Collection.extend({
 
-    getChecked: function() {
-      return this.where({checked:true});
-    }
-  });
+        model: Service,
 
-  var services = new ServiceList([
-    new Service({ title: 'web development', price: 200 }),
-    new Service({ title: 'web design', price: 250 }),
-    new Service({ title: 'photography', price: 100 }),
-    new Service({ title: 'coffee drinking', price: 10 })
-  ]);
+        getChecked: function(){
+            return this.where({checked:true});
+        }
+    });
 
-  var ServiceView = Backbone.View.extend({
-    tagName: 'li',
+    var services = new ServiceList([
+        new Service({ title: 'web development', price: 200}),
+        new Service({ title: 'web design', price: 250}),
+        new Service({ title: 'photography', price: 100}),
+        new Service({ title: 'coffee drinking', price: 10})
+    ]);
 
-    events:{
-      'click': 'toggleService'
-    },
+    var ServiceView = Backbone.View.extend({
+        tagName: 'li',
 
-    initialize: function(){
-      this.listenTo(this.model, 'change', this.render);
-    },
+        events:{
+            'click': 'toggleService'
+        },
 
-    render: function(){
-      this.$el.html('<input type="checkbox" value="1" name="' + this.model.get('title') + '" /> ' + this.model.get('title') + '<span>$' + this.model.get('price') + '</span>');
-      this.$('input').prop('checked', this.model.get('checked'));
+        initialize: function(){
 
-      return this;
-    },
+            this.listenTo(this.model, 'change', this.render);
+        },
 
-    toggleService: function(){
-      this.model.toggle();
-    }
+        render: function(){
 
-  });
+            this.$el.html('<input type="checkbox" value="1" name="' + this.model.get('title') + '" /> ' + this.model.get('title') + '<span>$' + this.model.get('price') + '</span>');
+            this.$('input').prop('checked', this.model.get('checked'));
+            return this;
+        },
 
-  var App = Backbone.View.extend({
-    el: $('#main'),
+        toggleService: function(){
+            this.model.toggle();
+        }
+    });
 
-    initialize: function(){
-      this.total = $('#total span');
-      this.list = $('#services');
-      this.listenTo(services, 'change', this.render);
+    var App = Backbone.View.extend({
 
-      services.each(function(service){
-        var view = new ServiceView({ model: service });
-        this.list.append(view.render().el);
-      }, this);
-    },
+        el: $('#main'),
 
-    render: function(){
-      var total = 0;
+        initialize: function(){
 
-      _.each(services.getChecked(), function(elem){
-        total += elem.get('price');
-      });
+            this.total = $('#total span');
+            this.list = $('#services');
 
-      this.total.text('$'+total);
+            this.listenTo(services, 'change', this.render);
 
-      return this;
-    }
+            services.each(function(service){
 
-    App();
+                var view = new ServiceView({ model: service });
+                this.list.append(view.render().el);
 
-  });
+            }, this); 
+        },
+
+        render: function(){
+
+            var total = 0;
+
+            _.each(services.getChecked(), function(elem){
+                total += elem.get('price');
+            });
+
+            this.total.text('$'+total);
+
+            return this;
+        }
+    });
+
+    new App();
 
 });
