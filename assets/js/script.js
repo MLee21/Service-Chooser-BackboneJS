@@ -53,7 +53,8 @@ $(function(){
   });
 
   var App = Backbone.View.extend({
-    
+    el: $('#main'),
+
 
   });
 
