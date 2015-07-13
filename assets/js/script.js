@@ -73,14 +73,13 @@ $(function(){
         total += elem.get('price');
       });
 
+      this.total.text('$'+total);
+
+      return this;
     }
 
+    App();
+
   });
-
-
-
-
-
-
 
 });
