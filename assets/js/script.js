@@ -58,6 +58,8 @@ $(function(){
     initialize: function(){
       this.total = $('#total span');
       this.list = $('#services');
+      this.listenTo(services, 'change', this.render);
+      
     }
 
   });
