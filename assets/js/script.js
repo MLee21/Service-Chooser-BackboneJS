@@ -28,7 +28,16 @@ $(function(){
     new Service({ title: 'coffee drinking', price: 10 })
   ]);
 
+  var ServiceView = Backbone.View.extend({
+    tagName: 'li',
 
+    events:{
+      'click': 'toggleService'
+    },
+
+    
+
+  });
 
 
 
