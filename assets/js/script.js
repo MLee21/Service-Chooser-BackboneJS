@@ -66,6 +66,15 @@ $(function(){
       }, this);
     },
 
+    render: function(){
+      var total = 0;
+
+      _.each(services.getChecked(), function(elem){
+        total += elem.get('price');
+      });
+
+    }
+
   });
 
 
